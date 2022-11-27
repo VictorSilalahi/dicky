@@ -1,0 +1,56 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>UD USAHA</title>
+
+    <!-- Bootstrap core CSS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">UD USAHA</h1>
+            <div class="row placeholders" id="divTipe">
+                    {% for d in data %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="media">
+                              <div class="media-left">
+                                <a href="#">
+                                  <img class="media-object" src="http://{{ host }}:7000/{{d.path}}" style="width:60px;height:80px">
+                                </a>
+                              </div>
+                              <div class="media-body">
+                                <input type="hidden" id="txtBarangId" value="{{d.barangid}}">
+                                <h4 class="media-heading headingNama">{{d.nama}}</h4>
+                                {{ d.ket }}
+                                <h5>Jumlah Stock : <span class="badge" id="badgeJumlah">{{ d.jumlah }}</span></h5>
+                                <div class="form-inline">
+                                  <h3>Harga : Rp. <span class="label label-primary badgeHarga">{{ d.harga }}</span></h3>
+                                  <input type="number" id="txtJumlahDipesan" value="1">
+                                  <button class="btn btn-warning pull-right form-control btnKeranjang">+ Keranjang</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+            </div>
+            <div id="dataKeranjang"></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/links/check.js') }}"></script>
+
+</html>

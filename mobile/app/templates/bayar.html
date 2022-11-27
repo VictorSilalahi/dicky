@@ -1,0 +1,47 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>UD USAHA</title>
+
+    <!-- Bootstrap core CSS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">UD USAHA</h1>
+            <div class="row placeholder" id="dataKeranjang">
+                <table id="tblKeranjang" class="table">
+                    <thead>
+                        <tr><td>Nama Barang</td><td>Harga</td><td>Jumlah Item</td><td>Total</td></tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row placeholders">
+                <form class="form-group" id="frmBayar">
+                    <label>Nama Lengkap</label><input type="text" name="txtNamaLengkap" id="txtNamaLengkap" class="form-control">
+                    <label>Email</label><input type="text" name="txtEmail" id="txtEmail" class="form-control">
+                    <label>No Telp</label><input type="text" name="txtNoTelp" id="txtNoTelp" class="form-control">
+                </form>
+                <button class="btn btn-success btnBeli">Masukkan Data Pembelian</button>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+
+  </body>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/links/bayar.js') }}"></script>
+
+</html>

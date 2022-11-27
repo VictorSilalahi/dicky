@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelian</title>
+</head>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<body>
+    <div class="container">
+        <div class="row">
+
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">USAHA</a>
+                  </div>
+              
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                      <li><a href="tipe">Tipe</a></li>
+                      <li><a href="/barang">Barang</a></li>
+                      <li class="active"><a href="/pembelian">Pembelian</a></li>
+                      <li><a href="/report">Report</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="/logoff">Logout</a></li>
+                    </ul>
+                  </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+              </nav>
+
+        </div>
+        <div class="row">
+            <label>Pilih Tanggal</label>&nbsp;<input type="text" id="dpPembelian">
+            <button class="btn btn-default" id="btnProsesDataPembelian">Lihat Data</button>
+        </div>
+        <div class="row">
+            <table class="table" id="tblPembelian">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Atas Nama</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">No Telp</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Detail Pembelian</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table" id="tblBeliDetail">
+                <thead>
+                  <tr><td>#</td><td>Nama</td><td>Jumlah</td><td>Total</td></tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+              <input type="hidden" id="txtCartId">
+              <label>Jenis Pembayaran</label>
+              <select class="form-control" id="slcJenisPembayaran">
+                <option value="Cash">Cash</option>
+                <option value="Transfer">Transfer</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary btnLunaskan">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+<script type="text/javascript" src="{{ url_for('static', filename='js/links/pembelian.js') }}"></script>
+</html>
