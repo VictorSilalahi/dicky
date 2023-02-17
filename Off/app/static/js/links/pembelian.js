@@ -1,4 +1,4 @@
-var backendHost = "http://"+window.location.hostname+":7000/";
+var backendHost = "http://103.63.24.104:7000/";
 
 $(document).ready(function() {
     

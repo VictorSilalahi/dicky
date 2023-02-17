@@ -10,10 +10,7 @@ class Customer(Resource):
         return jsonify({"msg":"ok", "data":ret})
 
     def post(self):
-        Koneksi  = koneksi.Koneksi()
-        ret = Koneksi.customer()
-        del Koneksi
-        return jsonify({"msg":"ok", "data":ret})
+        pass
 
     def put(self):
         pass

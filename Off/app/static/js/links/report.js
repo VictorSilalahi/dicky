@@ -1,19 +1,42 @@
-var backendHost = "http://"+window.location.hostname+":7000/";
+var backendHost = "http://127.0.0.1:7000/";
 
 $(document).ready(function() {
     
-    $("#dpPenjualan").datepicker();
+    $("#dpPenjualanBulanan").datepicker();
 
-    $("#btnProsesDataPenjualan").on("click", function() {
-        if ($("#dpPenjualan").val()=='')
+    $("#dpPenjualanTahunan").datepicker();
+
+    $("#dpPembeliTahunan").datepicker();
+
+    $("#btnProsesDataPenjualanBulanan").on("click", function() {
+        if ($("#dpPenjualanBulanan").val()=='')
         {
             alert("Tentukan bulan tahun!");
-            $("#dpPenjualan").focus();
+            $("#dpPenjualanBulanan").focus();
             return false;
         }
-        loadReport($("#dpPenjualan").val(), $("#slcCaraBayar").val());
+        loadReportBulanan($("#dpPenjualanBulanan").val(), $("#slcCaraBayarBulanan").val());
     });
 
+    $("#btnProsesDataPenjualanTahunan").on("click", function() {
+        if ($("#dpPenjualanTahunan").val()=='')
+        {
+            alert("Tentukan tahun!");
+            $("#dpPenjualanTahunan").focus();
+            return false;
+        }
+        loadReportTahunan($("#dpPenjualanTahunan").val(), $("#slcCaraBayarTahunan").val());
+    });
+
+    $("#btnProsesDataPembeliTahunan").on("click", function() {
+        if ($("#dpPembeliTahunan").val()=='')
+        {
+            alert("Tentukan tahun!");
+            $("#dpPembeliTahunan").focus();
+            return false;
+        }
+        loadReportPembeliTahunan($("#dpPembeliTahunan").val(), $("#slcCaraBeliTahunan").val());
+    });
 });
 
 
@@ -21,12 +44,12 @@ $(document).on("click", ".btnCetak", function() {
     PrintMe('divReport');
 });
 
-function loadReport(tgl, cara) {
+function loadReportBulanan(tgl, cara) {
     $("#tblPembelian > tbody").html("");
     var tglout = tgl.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
     var temp = tglout.split("-");
     var nf = Intl.NumberFormat();
-    $.get(backendHost+"api/report", {bln: temp[1], thn: temp[0], cara: cara}, function(data, status){
+    $.get(backendHost+"api/reportbulanan", {bln: temp[1], thn: temp[0], cara: cara}, function(data, status){
         if (status=="success")
         {
             if (data["msg"]=="ok")
@@ -42,12 +65,74 @@ function loadReport(tgl, cara) {
                     j++;
                 }
                 str=str+"<tr><th scope='row'></th><td>T o t a l</td><td>"+nf.format(sumTot)+"</td><td></td></tr>";
-                $("#tblReport > tbody").html(str);    
+                $("#tblReportBulanan > tbody").html(str);    
             }
         }
         if (status=="error")
         {
-            $("#tblReport tbody").html("Error!");
+            $("#tblReportBulanan tbody").html("Error!");
+        }
+    });
+}
+
+function loadReportTahunan(tgl, cara) {
+    $("#tblPembelian > tbody").html("");
+    var tglout = tgl.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+    var temp = tglout.split("-");
+    var nf = Intl.NumberFormat();
+    $.get(backendHost+"api/reporttahunan", {bln: 0, thn: temp[0], cara: cara}, function(data, status){
+        if (status=="success")
+        {
+            if (data["msg"]=="ok")
+            {
+                console.log(data["data"]);
+                var str="";
+                var j=1;
+                var sumTot = 0;
+                for (var i=0; i<data["data"].length; i++)
+                {
+                    str=str+"<tr><th scope='row'>"+j+"</th><td>"+data["data"][i]["tanggal"]+"</td><td>"+nf.format(data["data"][i]["total"])+"</td><td>"+data["data"][i]["nama"]+"</td></tr>";
+                    sumTot = sumTot + parseInt(data["data"][i]["total"]);
+                    j++;
+                }
+                str=str+"<tr><th scope='row'></th><td>T o t a l</td><td>"+nf.format(sumTot)+"</td><td></td></tr>";
+                $("#tblReportTahunan > tbody").html(str);    
+            }
+        }
+        if (status=="error")
+        {
+            $("#tblReportTahunan tbody").html("Error!");
+        }
+    });
+}
+
+function loadReportPembeliTahunan(tgl, cara) {
+    $("#tblPembelian > tbody").html("");
+    var tglout = tgl.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+    var temp = tglout.split("-");
+    var nf = Intl.NumberFormat();
+    $.get(backendHost+"api/reportpembelitahunan", {bln: 0, thn: temp[0], cara: cara}, function(data, status){
+        if (status=="success")
+        {
+            if (data["msg"]=="ok")
+            {
+                console.log(data["data"]);
+                var str="";
+                var j=1;
+                var sumTot = 0;
+                for (var i=0; i<data["data"].length; i++)
+                {
+                    str=str+"<tr><th scope='row'>"+j+"</th><td>"+data["data"][i]["fullname"]+"</td><td>"+data["data"][i]["email"]+"</td><td>"+nf.format(data["data"][i]["total"])+"</td></tr>";
+                    sumTot = sumTot + parseInt(data["data"][i]["total"]);
+                    j++;
+                }
+                str=str+"<tr><th scope='row'></th><td>T o t a l</td><td>"+nf.format(sumTot)+"</td><td></td></tr>";
+                $("#tblReportPembeliTahunan > tbody").html(str);    
+            }
+        }
+        if (status=="error")
+        {
+            $("#tblReportPembeliTahunan tbody").html("Error!");
         }
     });
 }
@@ -76,7 +161,7 @@ function PrintMe(DivID) {
        docprint.document.write('</center></body></html>');
        docprint.document.close();
        docprint.focus();
-    }
+}
 
 
 

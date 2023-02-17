@@ -16,7 +16,7 @@ def validasi():
     pwd = request.form['txtPassword']
     
     # Send POST request (validasi)
-    r = requests.post("http://127.0.0.1:7000/api/user/validate", data={"username":uname,"password":pwd})
+    r = requests.post("http://127.0.0.1:7000/api/user/validate", data={"username":uname,"password":pwd}, verify=False)
 
     if r.status_code == 200:
         temp = r.json()

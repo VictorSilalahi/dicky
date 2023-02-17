@@ -29,12 +29,38 @@
                 </table>
             </div>
             <div class="row placeholders">
-                <form class="form-group" id="frmBayar">
-                    <label>Nama Lengkap</label><input type="text" name="txtNamaLengkap" id="txtNamaLengkap" class="form-control">
-                    <label>Email</label><input type="text" name="txtEmail" id="txtEmail" class="form-control">
-                    <label>No Telp</label><input type="text" name="txtNoTelp" id="txtNoTelp" class="form-control">
-                </form>
-                <button class="btn btn-success btnBeli">Masukkan Data Pembelian</button>
+              
+              <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#first">Pertama Kali Belanja?</a></li>
+                <li><a data-toggle="tab" href="#manytimes">Mengulang Belanja?
+                  
+                </a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="first" class="tab-pane fade in active">
+                  <h3>Isi Data Anda</h3>
+                  <p>
+                    <form class="form-group" id="frmBayar">
+                      <label>Nama Lengkap</label><input type="text" name="txtNamaLengkap" id="txtNamaLengkap" class="form-control">
+                      <label>Email</label><input type="text" name="txtEmail" id="txtEmail" class="form-control">
+                      <label>No Telp</label><input type="text" name="txtNoTelp" id="txtNoTelp" class="form-control">
+                    </form>
+                    <button class="btn btn-success btnBeli">Masukkan Data Pembelian</button>
+                  </p>
+                </div>
+                <div id="manytimes" class="tab-pane fade">
+                  <h3>Proses Dengan Email dan Nomor Telp/HP Anda</h3>
+                  <p>
+                    <form class="form-group" id="frmBayarManyTimes">
+                      <label>Email</label><input type="text" name="txtEmailManyTimes" id="txtEmailManyTimes" class="form-control">
+                      <label>No Telp/HP</label><input type="text" name="txtNoTelpManyTimes" id="txtNoTelpManyTimes" class="form-control">
+                    </form>
+                    <button class="btn btn-success btnBeliManyTimes">Masukkan Data Pembelian</button>
+                  </p>
+                </div>
+              </div>
+
             </div>
             
         </div>

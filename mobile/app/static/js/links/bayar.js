@@ -21,24 +21,7 @@ $(document).ready(function() {
             return false;
         }
 
-        // $.post("http://127.0.0.1:7000/api/beli", {"fullname":$("#txtNamaLengkap").val(), "email": $("#txtEmail").val(), "notelp": $("#txtNoTelp").val(), "daftarbeli": $.parseJSON(sessionStorage.getItem("keranjang"))}, function(data, status){
-        //     if (status=="success")
-        //     {
-        //         if (data["msg"]=="ok")
-        //         {
-        //             sessionStorage.clear();
-        //             alert("Terima Kasih telah melakukan Pembelian di UD USAHA!");
-        //             window.location.href = "/";
-
-        //         }
-        //     }
-        //     if (status=="error")
-        //     {
-        //         alert("Operasi Error!");    
-        //     }
-        // });
-
-        var formData = new FormData()
+        var formData = new FormData();
         
         formData.append('fullname', $("#txtNamaLengkap").val());
         formData.append('email', $("#txtEmail").val());
@@ -57,13 +40,49 @@ $(document).ready(function() {
                 sessionStorage.clear();
                 alert("Terima Kasih telah melakukan Pembelian di UD USAHA!");
                 window.location.href = "/";
-        },
+            },
             error: function(){
                 console.log('error')
             }
         });
     });
 
+    $(".btnBeliManyTimes").on("click", function() {
+        if ($("#txtEmailManyTimes").val()=='')
+        {
+            alert("Masukkan email!");
+            return false;
+        }
+        if ($("#txtNoTelpManyTimes").val()=='')
+        {
+            alert("Masukkan no telepon!");
+            return false;
+        }
+
+        var formData = new FormData();
+        
+        formData.append('email', $("#txtEmail").val());
+        formData.append('notelp', $("#txtNoTelp").val());
+        formData.append('daftarbeli', JSON.stringify(sessionStorage.getItem("keranjang")) );
+    
+        // console.log(gbr);
+        $.ajax({
+            url: "http://127.0.0.1:7000/api/customer/check",
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            cache: false,
+            data: formData,
+            success: function(res){
+                sessionStorage.clear();
+                alert("Terima Kasih telah kembali melakukan Pembelian di UD USAHA!");
+                window.location.href = "/";
+            },
+            error: function(){
+                console.log('error')
+            }
+        });
+    });
 
 });
 

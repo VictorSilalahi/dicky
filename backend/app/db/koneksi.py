@@ -9,7 +9,8 @@ BASE_DIR = ""
 class Koneksi:
     def __init__(self):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        dbMaster = BASE_DIR + '\\master.db'
+        print(BASE_DIR)
+        dbMaster = os.path.join(BASE_DIR, 'master.db')
         self.conn = sqlite3.connect(dbMaster)
     
     def validasi(self, uname, pwd):
@@ -103,13 +104,37 @@ class Koneksi:
             data.append({"customerid":r[0],"fullname":r[1],"email":r[2],"alamat":r[3],"notelp":r[4]})
         return data
 
+    def customervalidasi(self, email, notelp):
+        temp = self.conn.execute("select count(*) as jlh from tusers where email='"+email+"' and notelp='"+notelp+"'")
+        res = temp.fetchone()
+        if res[0]>=1:
+            return 1
+        else:
+            return 0
+
     # model : report
-    def report(self, bln, thn, cara):
+    def reportbulanan(self, bln, thn, cara):
         data = []
-        temp = self.conn.execute("select tcart.cartid, sum(tcartdesc.total), tcart.tanggal, tcustomer.fullname from tcart, tcartdesc, tcustomer where  tcart.customerid=tcustomer.customerid and tcart.cartid=tcartdesc.cartid and strftime('%m', tcart.tanggal) = '"+bln+"' and strftime('%Y', tcart.tanggal) = '"+thn+"' and tcart.jenisbayar='"+cara+"' order by tcart.tanggal")
+        temp = self.conn.execute("select tcart.cartid, tcartdesc.total, tcart.tanggal, tcustomer.fullname from tcart, tcartdesc, tcustomer where  tcart.customerid=tcustomer.customerid and tcart.cartid=tcartdesc.cartid and strftime('%m', tcart.tanggal) = '"+bln+"' and strftime('%Y', tcart.tanggal) = '"+thn+"' and tcart.jenisbayar='"+cara+"' order by tcart.tanggal")
         rows = temp.fetchall()
         for r in rows:
             data.append({"tanggal":r[2],"total":r[1],"nama":r[3]})
+        return data
+
+    def reporttahunan(self, thn, cara):
+        data = []
+        temp = self.conn.execute("select tcart.cartid, tcartdesc.total, tcart.tanggal, tcustomer.fullname from tcart, tcartdesc, tcustomer where  tcart.customerid=tcustomer.customerid and tcart.cartid=tcartdesc.cartid and strftime('%Y', tcart.tanggal) = '"+thn+"' and tcart.jenisbayar='"+cara+"' order by tcart.tanggal")
+        rows = temp.fetchall()
+        for r in rows:
+            data.append({"tanggal":r[2],"total":r[1],"nama":r[3]})
+        return data
+
+    def reportpembelitahunan(self, thn, cara):
+        data = []
+        temp = self.conn.execute("select tcustomer.fullname, tcustomer.email, sum(tcartdesc.total) as totalbelanja from tcustomer, tcart, tcartdesc where tcustomer.customerid=tcart.cartid and tcart.cartid=tcartdesc.cartid AND strftime('%Y', tcart.tanggal) = '"+thn+"' and tcart.jenisbayar='"+cara+"' GROUP by tcustomer.fullname order by totalbelanja desc")
+        rows = temp.fetchall()
+        for r in rows:
+            data.append({"fullname":r[0],"email":r[1],"total":r[2]})
         return data
 
     # pembelian
@@ -139,7 +164,7 @@ class Koneksi:
     # model : cart
     def cart(self, tanggal):
         data = []
-        temp = self.conn.execute("SELECT tcart.cartid, tcustomer.fullname, tcustomer.notelp, tcustomer.email from tcustomer, tcart where tcustomer.customerid=tcart.customerid and tcart.tanggal='"+tanggal+"' and tcart.telahdibayar is null")
+        temp = self.conn.execute("SELECT tcart.cartid, tcustomer.fullname, tcustomer.notelp, tcustomer.email from tcustomer, tcart where tcustomer.customerid=tcart.customerid and tcart.tanggal='"+tanggal+"' and tcart.telahdibayar is null order by tcart.cartid desc")
         rows = temp.fetchall()
         for r in rows:
             temp2 = self.conn.execute("SELECT count(*) from tcart, tcustomer where tcart.customerid=tcustomer.customerid and tcustomer.email='"+r[3]+"' and tcart.telahdibayar='y'")

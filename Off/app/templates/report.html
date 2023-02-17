@@ -46,17 +46,27 @@
 
         </div>
         <div class="row">
-            <label>Pilih Bulan & Tahun</label>&nbsp;<input type="text" id="dpPenjualan">
-            <label>Pilih Jenis Pembayaran</label>&nbsp;
-                <select id="slcCaraBayar">
-                    <option value="Cash">Cash</option>
-                    <option value="Transfer">Transfer</option>
-                </select>
-            <button class="btn btn-default" id="btnProsesDataPenjualan">Lihat Data</button>
-        </div>
-        <div class="row">
-            <div id="divReport">
-                <table class="table" id="tblReport">
+
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#bulanan">Bulanan</a></li>
+            <li><a data-toggle="tab" href="#tahunan">Tahunan</a></li>
+            <li><a data-toggle="tab" href="#pembeli">Pembeli</a></li>
+          </ul>
+          
+          <div class="tab-content">
+            <div id="bulanan" class="tab-pane fade in active">
+              <h3>Report Bulanan</h3>
+              <p>
+                <label>Pilih Bulan & Tahun</label>&nbsp;<input type="text" id="dpPenjualanBulanan">
+                <label>Pilih Jenis Pembayaran</label>&nbsp;
+                    <select id="slcCaraBayarBulanan">
+                        <option value="Cash">Cash</option>
+                        <option value="Transfer">Transfer</option>
+                    </select>
+                <button class="btn btn-default" id="btnProsesDataPenjualanBulanan">Lihat Data</button>
+              </p>
+              <div id="divReport">
+                <table class="table" id="tblReportBulanan">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -70,8 +80,77 @@
                     </tr>
                     </tbody>
                 </table>
+              </div>
+              <button class="btn btn-success btnCetakBulanan">Cetak</button>
             </div>
-            <button class="btn btn-success btnCetak">Cetak</button>
+            <div id="tahunan" class="tab-pane fade">
+              <h3>Report Tahunan</h3>
+              <p>
+                <label>Pilih Tahun</label>&nbsp;<input type="text" id="dpPenjualanTahunan">
+                <label>Pilih Jenis Pembayaran</label>&nbsp;
+                    <select id="slcCaraBayarTahunan">
+                        <option value="Cash">Cash</option>
+                        <option value="Transfer">Transfer</option>
+                    </select>
+                <button class="btn btn-default" id="btnProsesDataPenjualanTahunan">Lihat Data</button>
+              </p>
+              <div id="divReport">
+                <table class="table" id="tblReportTahunan">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Jumlah</th>
+                        <th scope="col">Pembeli</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+              <button class="btn btn-success btnCetakTahunan">Cetak</button>
+
+            </div>
+            <div id="pembeli" class="tab-pane fade">
+              <h3>Report Pembeli</h3>
+              <p>
+                <label>Pilih Tahun</label>&nbsp;<input type="text" id="dpPembeliTahunan">
+                <label>Pilih Jenis Pembayaran</label>&nbsp;
+                    <select id="slcCaraBeliTahunan">
+                        <option value="Cash">Cash</option>
+                        <option value="Transfer">Transfer</option>
+                    </select>
+                <button class="btn btn-default" id="btnProsesDataPembeliTahunan">Lihat Data</button>
+              </p>
+              <div id="divReport">
+                <table class="table" id="tblReportPembeliTahunan">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Total Pembelian</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+              <button class="btn btn-success btnCetakTahunan">Cetak</button>
+
+
+            </div>
+          </div>
+
+
+
+        </div>
+        <div class="row">
+
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-backendHost = "http://"+window.location.hostname+":7000/";
+backendHost = "http://127.0.0.1:7000/";
 
 $(document).ready(function() {
     
