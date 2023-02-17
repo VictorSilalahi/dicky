@@ -1,0 +1,60 @@
+backend
+=======
+http://103.63.24.104:7000/api/tipe
+http://103.63.24.104:7000/api/barang
+http://103.63.24.104:7000/api/customer
+
+
+front office
+===========
+http://103.63.24.104:5000/ (username: fitri@gmail.com, passwrd: fitri)
+
+
+Cara menjalan aplikasi backend
+==============================
+1. Jalankan aplikasi putty
+2. Masukkan IP 103.63.24.104 pada isian hostname (or IP Address)
+3. Port tetap pada 22
+4. Klik tombol Load
+5. Apabila muncul layar hitam shell linux, maka masukkan 
+	username : root dan password : kTaelr=91M
+6. Apabila username dan password benar, maka nanti akan muncul command line spt
+	root@udsesuai:~#
+7. ketikkan cd .. dan enter
+8. ketikkan cd var/www/dicky/backend/ dan enter
+9. ketik source/venv/bin/activate dan enter (utk mengaktifkan virtual env)
+10. ketik python run.py
+
+Cara menjalan aplikasi frontoffice
+==================================
+1. Jalankan aplikasi putty
+2. Masukkan IP 103.63.24.104 pada isian hostname (or IP Address)
+3. Port tetap pada 22
+4. Klik tombol Load
+5. Apabila muncul layar hitam shell linux, maka masukkan 
+	username : root dan password : kTaelr=91M
+6. Apabila username dan password benar, maka nanti akan muncul command line spt
+	root@udsesuai:~#
+7. ketikkan cd .. dan enter
+8. ketikkan cd var/www/dicky/Off/ dan enter
+9. ketik source/venv/bin/activate dan enter (utk mengaktifkan virtual env)
+10. ketik python run.py
+
+Cara menjalan aplikasi mobile
+==============================
+1. Jalankan aplikasi putty
+2. Masukkan IP 103.63.24.104 pada isian hostname (or IP Address)
+3. Port tetap pada 22
+4. Klik tombol Load
+5. Apabila muncul layar hitam shell linux, maka masukkan 
+	username : root dan password : kTaelr=91M
+6. Apabila username dan password benar, maka nanti akan muncul command line spt
+	root@udsesuai:~#
+7. ketikkan cd .. dan enter
+8. ketikkan cd var/www/dicky/mobile/ dan enter
+9. ketik source/venv/bin/activate dan enter (utk mengaktifkan virtual env)
+10. ketik python run.py
+
+
+
+

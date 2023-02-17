@@ -19,6 +19,7 @@ $(document).ready(function() {
 $(document).on("click", ".btnBayar", function() {
     var nf = Intl.NumberFormat();
     var cartid = $(this).parent().parent().attr("id");
+    var jlhbeli = parseInt($(this).parent().parent().find("td:eq(3)").text());
     $.get(backendHost+"api/cart/detail", {cid: cartid}, function(data, status){
         if (status=="success")
         {
@@ -33,7 +34,15 @@ $(document).on("click", ".btnBayar", function() {
                     sumTot = sumTot + parseInt(data["data"][i]["total"]);
                     j++;
                 }
-                str=str+"<tr><td colspan='3'>T o t a l</td><td>"+nf.format(sumTot)+"</td></tr>";
+                if (jlhbeli==0)
+                {
+                    str=str+"<tr><td colspan='2'>Customer ini mendapat bonus</td><td>SEMBAKO</td><td></td><tr>";
+                }
+                if (jlhbeli % 10>0)
+                {
+                    str=str+"<tr><td colspan='2'>Potongan</td><td><select id='slcPotongan'><option value='0'>-</option><option value='2'>2%</option><option value='3'>3%</option><option value='5'>5%</option></select></td><td></td><td></td></tr>";
+                }
+                str=str+"<tr><td colspan='3'>T o t a l</td><td><div id='divSumTot'>"+nf.format(sumTot)+"</div></td></tr>";
                 $("#tblBeliDetail > tbody").html(str);    
             }
             $("#txtCartId").val(cartid);
@@ -77,6 +86,13 @@ $(document).on("click", ".btnLunaskan", function() {
     }
 });
 
+$(document).on("click", "#slcPotongan", function() {
+    var total = parseInt($("#divSumTot").text());
+    var potongan = (total*$("#slcPotongan").val())/100;
+    var sisa = total - potongan;
+    $("#divSumTot").val(sisa);
+});
+
 function loadPembelian(tgl) {
     $("#tblPembelian > tbody").html("");
     var tglout = tgl.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
@@ -90,7 +106,7 @@ function loadPembelian(tgl) {
                 var j=1;
                 for (var i=0; i<data["data"].length; i++)
                 {
-                    str=str+"<tr id='"+data["data"][i]["cartid"]+"'><th scope='row'>"+j+"</th><td>"+data["data"][i]["fullname"]+"</td><td>"+data["data"][i]["email"]+"</td><td>"+data["data"][i]["telp"]+"</td><td><button class='btn btn-danger btnHapusPembelian'>Hapus</button>&nbsp;<button class='btn btn-primary btnBayar'>Bayar</button></td></tr>"
+                    str=str+"<tr id='"+data["data"][i]["cartid"]+"'><th scope='row'>"+j+"</th><td>"+data["data"][i]["fullname"]+"</td><td>"+data["data"][i]["email"]+"</td><td>"+data["data"][i]["telp"]+"</td><td>"+data["data"][i]["jumlahbeli"]+"</td><td><button class='btn btn-danger btnHapusPembelian'>Hapus</button>&nbsp;<button class='btn btn-primary btnBayar'>Bayar</button></td></tr>"
                     j++;
                 }
                 $("#tblPembelian > tbody").html(str);    

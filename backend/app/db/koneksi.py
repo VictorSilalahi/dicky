@@ -142,7 +142,9 @@ class Koneksi:
         temp = self.conn.execute("SELECT tcart.cartid, tcustomer.fullname, tcustomer.notelp, tcustomer.email from tcustomer, tcart where tcustomer.customerid=tcart.customerid and tcart.tanggal='"+tanggal+"' and tcart.telahdibayar is null")
         rows = temp.fetchall()
         for r in rows:
-            data.append({"cartid":r[0], "fullname":r[1],"telp":r[2],"email":r[3]})
+            temp2 = self.conn.execute("SELECT count(*) from tcart, tcustomer where tcart.customerid=tcustomer.customerid and tcustomer.email='"+r[3]+"' and tcart.telahdibayar='y'")
+            rows2 = temp2.fetchone()
+            data.append({"cartid":r[0], "fullname":r[1],"telp":r[2],"email":r[3], "jumlahbeli": rows2[0]})
         return data
 
     def cartDetail(self, cid):
